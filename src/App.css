@@ -11907,7 +11907,6 @@ header i {
   width: 100px;
   position: absolute;
   right: 0;
-  top: calc(var(--slider-py) - 60px);
 }
 
 .indicator {
