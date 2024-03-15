@@ -2,14 +2,10 @@
 ::-webkit-scrollbar {
   display: none;
 }
-header {
-  .avatar {
-    width: 50px;
-  }
-  i {
-    color: $gray-500;
-  }
+body {
+  background-color: $dark;
 }
+
 :root {
   --movie-width: 15.5vw;
   --movie-height: 200px;
@@ -21,6 +17,29 @@ header {
     --movie-width: 25vw;
   }
 }
+
+// NAVBAR-HEADER
+header {
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+}
+header {
+  .avatar {
+    width: 50px;
+  }
+  i {
+    color: $gray-500;
+  }
+}
+.after-scroll {
+  background-color: #111;
+  transition: 0.5s;
+  transition-timing-function: ease-in;
+}
+
 /*
 *
 * THE SLIDER CONTAINER

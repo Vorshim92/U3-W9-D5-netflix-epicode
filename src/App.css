@@ -11843,11 +11843,8 @@ textarea.form-control-lg {
   display: none;
 }
 
-header .avatar {
-  width: 50px;
-}
-header i {
-  color: #adb5bd;
+body {
+  background-color: #212529;
 }
 
 :root {
@@ -11862,6 +11859,27 @@ header i {
     --movie-width: 25vw;
   }
 }
+header {
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+}
+
+header .avatar {
+  width: 50px;
+}
+header i {
+  color: #adb5bd;
+}
+
+.after-scroll {
+  background-color: #111;
+  transition: 0.5s;
+  transition-timing-function: ease-in;
+}
+
 /*
 *
 * THE SLIDER CONTAINER
