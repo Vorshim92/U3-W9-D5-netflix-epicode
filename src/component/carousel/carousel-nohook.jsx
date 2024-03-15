@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 // import routes from "../../routes";
 import { options } from "../../options/fetchOptions.js";
 import { Spinner } from "react-bootstrap";
@@ -12,9 +12,76 @@ class CarouselClass extends Component {
       movies: [],
       isLoading: true,
     };
+    this.sliderRef = createRef();
+    this.testRef = createRef();
+    this.indicatorsRef = createRef();
   }
   async componentDidMount() {
     await this.fetchMovies();
+  }
+
+  async componentDidUpdate(prevState) {
+    if (prevState.movies !== this.state.movies) {
+      this.addEventListeners();
+    }
+  }
+  addEventListeners() {
+    let activeIndex = 0;
+    const sliders = this.sliderRef.current;
+    const divSliders = this.testRef.current;
+    const indicatorsContainer = this.indicatorsRef.current;
+    const indicators = indicatorsContainer.querySelectorAll(".indicator");
+
+    function updateIndicators(index) {
+      indicators.forEach((indicator) => {
+        indicator.classList.remove("active");
+      });
+      let newActiveIndicator = indicators[index];
+      newActiveIndicator.classList.add("active");
+    }
+    // Scroll Left button
+    const btnLeft = divSliders.querySelector(".moveLeft");
+    btnLeft.addEventListener("click", function (e) {
+      let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
+      let scrollDistance = movieWidth * 6;
+      divSliders.querySelector(".slider").scrollBy({
+        top: 0,
+        left: -scrollDistance,
+        behavior: "smooth",
+      });
+      activeIndex = (activeIndex - 1) % 3;
+      console.log(activeIndex);
+      updateIndicators(activeIndex);
+    });
+    // Scroll Right button
+    const btnRight = divSliders.querySelector(".moveRight");
+    btnRight.addEventListener("click", function (e) {
+      let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
+      let scrollDistance = movieWidth * 6;
+      console.log(`movieWidth = ${movieWidth}`);
+      console.log(`scrolling right ${scrollDistance}`);
+      console.log(btnRight);
+      console.log(divSliders.querySelector(".slider"));
+      // if we're on the last page
+      if (activeIndex == 2) {
+        divSliders.querySelector(".slider").scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+        activeIndex = 0;
+        updateIndicators(activeIndex);
+      } else {
+        divSliders.querySelector(".slider").scrollBy({
+          top: 0,
+          left: +scrollDistance,
+          behavior: "smooth",
+        });
+        activeIndex = (activeIndex + 1) % 3;
+        console.log(activeIndex);
+        updateIndicators(activeIndex);
+      }
+    });
   }
 
   // FETCH MOVIE
@@ -32,7 +99,7 @@ class CarouselClass extends Component {
     return (
       <>
         <div className="container-fluid carosello">
-          <div className="container-indicators">
+          <div className="container-indicators" ref={this.indicatorsRef}>
             <div className="indicator active" data-index="0"></div>
             <div className="indicator" data-index="1"></div>
             <div className="indicator" data-index="2"></div>
@@ -42,14 +109,14 @@ class CarouselClass extends Component {
           {this.state.isLoading ? (
             <Spinner animation="border" variant="danger" />
           ) : (
-            <div className="test">
+            <div className="test" ref={this.testRef}>
               <button type="button" className="btn-nav moveLeft">
                 ᐊ
               </button>
               <button type="button" className="btn-nav moveRight">
                 ᐅ
               </button>
-              <div className="slider" id="mySlider">
+              <div className="slider" id="mySlider" ref={this.sliderRef}>
                 {this.state.movies.map((movie, i) => (
                   <div className="movie" id="trending" key={movie.id}>
                     <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="" />
