@@ -12,20 +12,89 @@ class CarouselClass extends Component {
       movies: [],
       isLoading: true,
     };
+    this.divSliders = null; // Dichiaro la variabile di istanza divSliders
+    this.activeIndex = 0; // Dichiaro la variabile di istanza activeIndex
   }
-  componentDidMount() {
-    const fetchMovie = async () => {
-      try {
-        const response = await fetch(this.props.type, options);
-        const data = await response.json();
-        this.setState({ movies: data.results, isLoading: false });
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  async componentDidMount() {
+    await this.fetchMovies();
+    this.addEventListeners();
+  }
 
-    fetchMovie();
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.movies !== this.state.movies) {
+      this.addEventListeners();
+    }
   }
+
+  // FETCH MOVIE
+  async fetchMovies() {
+    try {
+      const response = await fetch(this.props.type, options);
+      const data = await response.json();
+      this.setState({ movies: data.results, isLoading: false });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  updateIndicators(index) {
+    const indicators = document.querySelectorAll(".indicator");
+    indicators.forEach((indicator) => {
+      indicator.classList.remove("active");
+    });
+    let newActiveIndicator = indicators[index];
+    newActiveIndicator.classList.add("active");
+  }
+
+  handleMoveLeft = (e) => {
+    let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
+    let scrollDistance = movieWidth * 6;
+    this.divSliders.querySelector(".slider").scrollBy({
+      top: 0,
+      left: -scrollDistance,
+      behavior: "smooth",
+    });
+    this.activeIndex = (this.activeIndex - 1) % 3;
+    console.log(this.activeIndex);
+    this.updateIndicators(this.activeIndex);
+  };
+
+  handleMoveRight = (e) => {
+    let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
+    let scrollDistance = movieWidth * 6;
+    console.log(`movieWidth = ${movieWidth}`);
+    console.log(`scrolling right ${scrollDistance}`);
+    console.log(this.divSliders.querySelector(".slider"));
+    // se si è nell'ultima pagina
+    if (this.activeIndex == 2) {
+      this.divSliders.querySelector(".slider").scrollBy({
+        top: 0,
+        left: +scrollDistance,
+        behavior: "smooth",
+      });
+      this.activeIndex = 0;
+      this.updateIndicators(this.activeIndex);
+    } else {
+      this.divSliders.querySelector(".slider").scrollBy({
+        top: 0,
+        left: +scrollDistance,
+        behavior: "smooth",
+      });
+      this.activeIndex = (this.activeIndex + 1) % 3;
+      console.log(this.activeIndex);
+      this.updateIndicators(this.activeIndex);
+    }
+  };
+
+  addEventListeners() {
+    this.divSliders = document.querySelector(".test");
+    const btnLeft = this.divSliders.querySelector(".moveLeft");
+    btnLeft.addEventListener("click", this.handleMoveLeft);
+
+    const btnRight = this.divSliders.querySelector(".moveRight");
+    btnRight.addEventListener("click", this.handleMoveRight);
+  }
+
   render() {
     return (
       <>

@@ -1,8 +1,6 @@
 import "./App.css";
 import Navbar from "./component/navbar/navbar";
 import Footer from "./component/footer/footer";
-import Carousel from "./component/carousel/carousel";
-import Cover from "./component/cover";
 import { urls } from "./options/fetchOptions.js";
 import CarouselClass from "./component/carousel/carousel-nohook";
 import CoverClass from "./component/cover/cover-nohook";
