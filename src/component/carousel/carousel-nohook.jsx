@@ -37,14 +37,14 @@ class CarouselClass extends Component {
       let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
       let scrollDistance = movieWidth * 1;
       // if we're on the last page
-      if (activeIndex == 0) {
+      if (activeIndex === 0) {
       } else {
         divSliders.querySelector(".slider").scrollBy({
           top: 0,
           left: -scrollDistance,
           behavior: "smooth",
         });
-        activeIndex = (activeIndex - 1) % indexLength;
+        activeIndex = activeIndex - 1;
         console.log(activeIndex);
       }
     });
@@ -54,14 +54,15 @@ class CarouselClass extends Component {
       let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
       let scrollDistance = movieWidth * 1;
       // if we're on the last page
-      if (activeIndex == indexLength - 1) {
+      if (activeIndex === indexLength - 6) {
       } else {
         divSliders.querySelector(".slider").scrollBy({
           top: 0,
           left: +scrollDistance,
           behavior: "smooth",
         });
-        activeIndex = (activeIndex + 1) % indexLength;
+        activeIndex = activeIndex + 1;
+        console.log(activeIndex);
       }
     });
   }
