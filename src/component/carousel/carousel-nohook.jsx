@@ -14,7 +14,6 @@ class CarouselClass extends Component {
     };
     this.sliderRef = createRef();
     this.testRef = createRef();
-    this.indicatorsRef = createRef();
   }
   async componentDidMount() {
     await this.fetchMovies();
@@ -29,57 +28,40 @@ class CarouselClass extends Component {
     let activeIndex = 0;
     const sliders = this.sliderRef.current;
     const divSliders = this.testRef.current;
-    const indicatorsContainer = this.indicatorsRef.current;
-    const indicators = indicatorsContainer.querySelectorAll(".indicator");
+    const indexLength = divSliders.querySelectorAll(".movie").length;
+    console.log(indexLength);
 
-    function updateIndicators(index) {
-      indicators.forEach((indicator) => {
-        indicator.classList.remove("active");
-      });
-      let newActiveIndicator = indicators[index];
-      newActiveIndicator.classList.add("active");
-    }
     // Scroll Left button
     const btnLeft = divSliders.querySelector(".moveLeft");
     btnLeft.addEventListener("click", function (e) {
       let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
-      let scrollDistance = movieWidth * 6;
-      divSliders.querySelector(".slider").scrollBy({
-        top: 0,
-        left: -scrollDistance,
-        behavior: "smooth",
-      });
-      activeIndex = (activeIndex - 1) % 3;
-      console.log(activeIndex);
-      updateIndicators(activeIndex);
+      let scrollDistance = movieWidth * 1;
+      // if we're on the last page
+      if (activeIndex == 0) {
+      } else {
+        divSliders.querySelector(".slider").scrollBy({
+          top: 0,
+          left: -scrollDistance,
+          behavior: "smooth",
+        });
+        activeIndex = (activeIndex - 1) % indexLength;
+        console.log(activeIndex);
+      }
     });
     // Scroll Right button
     const btnRight = divSliders.querySelector(".moveRight");
     btnRight.addEventListener("click", function (e) {
       let movieWidth = document.querySelector(".movie").getBoundingClientRect().width;
-      let scrollDistance = movieWidth * 6;
-      console.log(`movieWidth = ${movieWidth}`);
-      console.log(`scrolling right ${scrollDistance}`);
-      console.log(btnRight);
-      console.log(divSliders.querySelector(".slider"));
+      let scrollDistance = movieWidth * 1;
       // if we're on the last page
-      if (activeIndex == 2) {
-        divSliders.querySelector(".slider").scrollBy({
-          top: 0,
-          left: +scrollDistance,
-          behavior: "smooth",
-        });
-        activeIndex = 0;
-        updateIndicators(activeIndex);
+      if (activeIndex == indexLength - 1) {
       } else {
         divSliders.querySelector(".slider").scrollBy({
           top: 0,
           left: +scrollDistance,
           behavior: "smooth",
         });
-        activeIndex = (activeIndex + 1) % 3;
-        console.log(activeIndex);
-        updateIndicators(activeIndex);
+        activeIndex = (activeIndex + 1) % indexLength;
       }
     });
   }
@@ -99,12 +81,6 @@ class CarouselClass extends Component {
     return (
       <>
         <div className="container-fluid carosello">
-          <div className="container-indicators" ref={this.indicatorsRef}>
-            <div className="indicator active" data-index="0"></div>
-            <div className="indicator" data-index="1"></div>
-            <div className="indicator" data-index="2"></div>
-          </div>
-
           <h3 className="text-white mt-2">{this.props.title}</h3>
           {this.state.isLoading ? (
             <Spinner animation="border" variant="danger" />
