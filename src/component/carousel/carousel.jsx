@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { options } from "../../options/fetchOptions.js";
 import { Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Carousel(props) {
   const [movies, setMovies] = useState([]);
@@ -42,6 +43,12 @@ function Carousel(props) {
       let scrollDistance = movieWidth * 1;
       // if we're on the last page
       if (activeIndex === 0) {
+        divSliders.querySelector(".slider").scrollBy({
+          top: 0,
+          left: +(movieWidth * 16),
+          behavior: "smooth",
+        });
+        activeIndex = indexLength - 6;
       } else {
         divSliders.querySelector(".slider").scrollBy({
           top: 0,
@@ -59,6 +66,12 @@ function Carousel(props) {
       let scrollDistance = movieWidth * 1;
       // if we're on the last page
       if (activeIndex === indexLength - 6) {
+        divSliders.querySelector(".slider").scrollBy({
+          top: 0,
+          left: -(movieWidth * 16),
+          behavior: "smooth",
+        });
+        activeIndex = 0;
       } else {
         divSliders.querySelector(".slider").scrollBy({
           top: 0,
@@ -87,40 +100,42 @@ function Carousel(props) {
             </button>
             <div className="slider" id="mySlider" ref={sliderRef}>
               {movies.map((movie, i) => (
-                <div className="movie" id="trending" key={movie.id}>
-                  <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="" />
-                  <div className="description">
-                    <div className="description__buttons-container">
-                      <div className="description__button">
-                        <i className="fas fa-play"></i>
+                <Link to={"/movie/" + movie.id}>
+                  <div className="movie" id="trending" key={movie.id}>
+                    <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="" />
+                    <div className="description">
+                      <div className="description__buttons-container">
+                        <div className="description__button">
+                          <i className="fas fa-play"></i>
+                        </div>
+                        <div className="description__button">
+                          <i className="fas fa-plus"></i>
+                        </div>
+                        <div className="description__button">
+                          <i className="fas fa-thumbs-up"></i>
+                        </div>
+                        <div className="description__button">
+                          <i className="fas fa-thumbs-down"></i>
+                        </div>
+                        <div className="description__button">
+                          <i className="fas fa-chevron-down"></i>
+                        </div>
                       </div>
-                      <div className="description__button">
-                        <i className="fas fa-plus"></i>
+                      <div className="description__text-container">
+                        <span className="description__match">97% Match</span>
+                        <span className="description__rating">TV-14</span>
+                        <span className="description__length">2h 11m</span>
+                        <br />
+                        <br />
+                        <span>Explosive</span>
+                        <span>&middot;</span>
+                        <span>Exciting</span>
+                        <span>&middot;</span>
+                        <span>Family</span>
                       </div>
-                      <div className="description__button">
-                        <i className="fas fa-thumbs-up"></i>
-                      </div>
-                      <div className="description__button">
-                        <i className="fas fa-thumbs-down"></i>
-                      </div>
-                      <div className="description__button">
-                        <i className="fas fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div className="description__text-container">
-                      <span className="description__match">97% Match</span>
-                      <span className="description__rating">TV-14</span>
-                      <span className="description__length">2h 11m</span>
-                      <br />
-                      <br />
-                      <span>Explosive</span>
-                      <span>&middot;</span>
-                      <span>Exciting</span>
-                      <span>&middot;</span>
-                      <span>Family</span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

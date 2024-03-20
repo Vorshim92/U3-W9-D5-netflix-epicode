@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import * as icons from "react-bootstrap-icons";
-// import { useNavigate } from "react-router-dom";
-import routes from "../../routes";
+import { Link, useLocation } from "react-router-dom";
 
-function Navbar({ selectedProfile }) {
-  //   const navigate = useNavigate();
+function Navbar() {
+  const location = useLocation();
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
@@ -14,13 +13,9 @@ function Navbar({ selectedProfile }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  //   const navigateToProfile = () => {
-  //     navigate(routes.profile);
-  //   };
-
   return (
     <>
-      <header className={`${offset > 30 && `after-scroll`}`}>
+      <header className={`${location.pathname === "/" && offset > 30 ? "header-class after-scroll" : location.pathname === "/" ? "header-class" : "after-scroll"}`}>
         <nav className="navbar navbar-dark navbar-expand-md">
           <div className="container-fluid">
             <a className="navbar-brand" href="#">
@@ -29,14 +24,14 @@ function Navbar({ selectedProfile }) {
             <div className="collapse navbar-collapse" id="collapsibleNavId">
               <ul className="navbar-nav me-auto mt-2 mt-lg-0">
                 <li className="nav-item">
-                  <a className="nav-link active" href="#" aria-current="page">
-                    Home <span className="visually-hidden">(current)</span>
-                  </a>
+                  <Link className="nav-link" to="/">
+                    Home
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <Link className="nav-link" to="/tv-shows">
                     TV Shows
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">

@@ -1,25 +1,48 @@
 import React, { useEffect, useState } from "react";
 import "./cover.css";
 import { urls, options, apiKey } from "../../options/fetchOptions.js";
+import { useLocation, useParams } from "react-router-dom";
 
 function Cover() {
+  const location = useLocation();
+  const { movieId } = useParams();
   const [movie, setMovie] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchMovie() {
       try {
-        const response = await fetch(urls.fetchTrending, options);
+        let movieUrl = "";
+
+        if (location.pathname === "/") {
+          movieUrl = `${urls.fetchTrending}`;
+        } else {
+          movieUrl = `https://api.themoviedb.org/3/movie/${movieId}${apiKey}`;
+        }
+
+        const response = await fetch(movieUrl, options);
         const data = await response.json();
-        console.log(data);
-        console.log(data.results[Math.floor(Math.random() * data.results.length)]);
-        setMovie(data.results[Math.floor(Math.random() * data.results.length)]);
+
+        if (location.pathname === "/") {
+          const randomIndex = Math.floor(Math.random() * data.results.length);
+          setMovie(data.results[randomIndex]);
+        } else {
+          setMovie(data);
+        }
+
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
+        setIsLoading(false);
       }
     }
 
     fetchMovie();
-  }, []);
+  }, [location, movieId]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div style={{ zIndex: 1, position: "relative" }}>

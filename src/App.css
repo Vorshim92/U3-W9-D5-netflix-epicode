@@ -11859,7 +11859,11 @@ body {
     --movie-width: 25vw;
   }
 }
-header {
+a {
+  text-decoration: none !important;
+}
+
+.header-class {
   background-color: transparent;
   position: fixed;
   top: 0;

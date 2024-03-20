@@ -17,9 +17,12 @@ body {
     --movie-width: 25vw;
   }
 }
+a {
+  text-decoration: none !important;
+}
 
 // NAVBAR-HEADER
-header {
+.header-class {
   background-color: transparent;
   position: fixed;
   top: 0;
