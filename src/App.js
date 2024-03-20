@@ -4,6 +4,7 @@ import Footer from "./component/footer/footer";
 import { urls } from "./options/fetchOptions.js";
 import Carousel from "./component/carousel/carousel";
 import Cover from "./component/cover/cover";
+import EditProfile from "./component/profiles/editProfile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -13,6 +14,14 @@ function App() {
         <Navbar></Navbar>
         <main>
           <Routes>
+            <Route
+              path="/edit-profile"
+              element={
+                <>
+                  <EditProfile></EditProfile>
+                </>
+              }
+            />
             <Route
               path="/"
               element={
