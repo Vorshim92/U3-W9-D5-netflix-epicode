@@ -77,7 +77,7 @@ function Navbar() {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className="dropdown-menu-end">
-                    <Dropdown.Item>
+                    <Dropdown.Item as="div">
                       <Link className="nav-link" to="/edit-profile">
                         Profile Settings
                       </Link>
