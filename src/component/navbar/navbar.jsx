@@ -51,7 +51,7 @@ function Navbar() {
                 </li>
               </ul>
               <div class="searchbar div_box_research">
-                <input id="searchBar" type="text" class="box_research" placeholder="Cerca un film..." />
+                <input id="searchBar" type="text" className="box_research" placeholder={location.pathname === "/tv-shows" ? "Cerca una serie TV..." : "Cerca un film..."} />
                 <icons.Search className="search-icon" />
               </div>
             </div>
@@ -77,7 +77,11 @@ function Navbar() {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className="dropdown-menu-end">
-                    <Dropdown.Item href="./profile.html">Profile Settings</Dropdown.Item>
+                    <Dropdown.Item>
+                      <Link className="nav-link" to="/edit-profile">
+                        Profile Settings
+                      </Link>
+                    </Dropdown.Item>
                     <Dropdown.Item href="#tab3Id">Another action</Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item href="#tab4Id">Action</Dropdown.Item>

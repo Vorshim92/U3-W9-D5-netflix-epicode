@@ -83,7 +83,7 @@ function Carousel(props) {
   return (
     <>
       <div className="container-fluid carosello">
-        <h3 className="text-white mt-2">{props.title}</h3>
+        <h3 className="text-white mt-2 position-absolute">{props.title}</h3>
         {isLoading ? (
           <Spinner animation="border" variant="danger" />
         ) : (
