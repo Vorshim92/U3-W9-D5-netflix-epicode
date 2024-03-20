@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 function Carousel(props) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const sliderRef = useRef(null);
   const testRef = useRef(null);
 
   useEffect(() => {
@@ -32,7 +31,6 @@ function Carousel(props) {
 
   const addEventListeners = () => {
     let activeIndex = 0;
-    const sliders = sliderRef.current;
     const divSliders = testRef.current;
     const indexLength = divSliders.querySelectorAll(".movie").length;
 
@@ -56,7 +54,6 @@ function Carousel(props) {
           behavior: "smooth",
         });
         activeIndex = activeIndex - 1;
-        console.log(activeIndex);
       }
     });
     // Scroll Right button
@@ -79,7 +76,6 @@ function Carousel(props) {
           behavior: "smooth",
         });
         activeIndex = activeIndex + 1;
-        console.log(activeIndex);
       }
     });
   };
@@ -98,10 +94,10 @@ function Carousel(props) {
             <button type="button" className="btn-nav moveRight">
               ᐅ
             </button>
-            <div className="slider" id="mySlider" ref={sliderRef}>
+            <div className="slider" id="mySlider">
               {movies.map((movie, i) => (
-                <Link to={"/movie/" + movie.id}>
-                  <div className="movie" id="trending" key={movie.id}>
+                <Link to={"/movie/" + movie.id} key={movie.id}>
+                  <div className="movie" id="trending">
                     <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="" />
                     <div className="description">
                       <div className="description__buttons-container">

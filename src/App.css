@@ -11884,6 +11884,33 @@ header i {
   transition-timing-function: ease-in;
 }
 
+.div_box_research {
+  position: relative;
+}
+.div_box_research:hover {
+  transform: scale(1.1);
+}
+.div_box_research .box_research {
+  background-color: #242424;
+  border: 0;
+  border-radius: 500px;
+  color: #fff;
+  padding: 6px 36px;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.div_box_research .box_research:hover {
+  transform: scale(1.1);
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  color: #b3b3b3;
+}
+
 /*
 *
 * THE SLIDER CONTAINER

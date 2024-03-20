@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as icons from "react-bootstrap-icons";
 import { Link, useLocation } from "react-router-dom";
+import { Row, Col, Dropdown } from "react-bootstrap";
 
 function Navbar() {
   const location = useLocation();
@@ -49,50 +50,42 @@ function Navbar() {
                   </a>
                 </li>
               </ul>
-              <form className="d-flex" role="search">
-                <input className="form-control me-2 collapse collapse-horizontal" type="search" placeholder="Search" aria-label="Search" id="collapseWidthExample" />
-                <button
-                  className="btn btn-outline-secondary border border-dark"
-                  type="submit"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseWidthExample"
-                  aria-expanded="false"
-                  aria-controls="collapseWidthExample"
-                >
-                  <icons.Search />
-                </button>
-              </form>
+              <div class="searchbar div_box_research">
+                <input id="searchBar" type="text" class="box_research" placeholder="Cerca un film..." />
+                <icons.Search className="search-icon" />
+              </div>
             </div>
 
-            <div className="row align-items-center">
-              <div className="col-6 position-relative">
-                <a className="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                  <icons.Search className="p-3" />
-                </a>
+            <Row className="align-items-center">
+              <Col xs={6} className="position-relative">
+                <Dropdown>
+                  <Dropdown.Toggle variant="link" id="dropdown-basic">
+                    <icons.Search className="search-icon" />
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu className="dropdown-menu-end">
+                    <Dropdown.Item>Non hai nuove notifiche</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
                 <span className="position-absolute top-0 p-1 bg-warning border border-light rounded-circle" style={{ right: "20px" }}></span>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <p className="dropdown-item">Non hai nuove notifiche</p>
-                </div>
-              </div>
-              <div className="col-6 position-relative">
-                <a className="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                  <img className="avatar rounded-5" src="./assets/imgs/avatar.png" alt="" />
-                </a>
-                <span className="position-absolute bottom-0 p-2 bg-danger border border-light rounded-circle" style={{ right: "10px" }}></span>
-                <div className="dropdown-menu dropdown-menu-end bg-dark">
-                  <a className="dropdown-item text-white" href="./profile.html">
-                    Profile Settings
-                  </a>
-                  <a className="dropdown-item text-white" href="#tab3Id">
-                    Another action
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item text-white" href="#tab4Id">
-                    Action
-                  </a>
-                </div>
-              </div>
-            </div>
+              </Col>
+
+              <Col xs={6} className="position-relative">
+                <Dropdown>
+                  <Dropdown.Toggle variant="" id="dropdown-basic">
+                    <img className="avatar rounded-5" src="./assets/imgs/avatar.png" alt="" />
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu className="dropdown-menu-end">
+                    <Dropdown.Item href="./profile.html">Profile Settings</Dropdown.Item>
+                    <Dropdown.Item href="#tab3Id">Another action</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item href="#tab4Id">Action</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <span className="position-absolute bottom-0 p-2 bg-danger border border-light rounded-circle" style={{ right: "25px" }}></span>
+              </Col>
+            </Row>
           </div>
         </nav>
       </header>
