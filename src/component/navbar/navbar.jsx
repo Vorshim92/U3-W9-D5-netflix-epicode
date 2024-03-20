@@ -59,8 +59,8 @@ function Navbar() {
             <Row className="align-items-center">
               <Col xs={6} className="position-relative">
                 <Dropdown>
-                  <Dropdown.Toggle variant="link" id="dropdown-basic">
-                    <icons.Search className="search-icon" />
+                  <Dropdown.Toggle variant="" id="dropdown-basic">
+                    <icons.BellFill className="search-icon" />
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className="dropdown-menu-end">
