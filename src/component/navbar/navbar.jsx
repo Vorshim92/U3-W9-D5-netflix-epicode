@@ -50,7 +50,7 @@ function Navbar() {
                   </a>
                 </li>
               </ul>
-              <div class="searchbar div_box_research">
+              <div className="searchbar div_box_research">
                 <input id="searchBar" type="text" className="box_research" placeholder={location.pathname === "/tv-shows" ? "Cerca una serie TV..." : "Cerca un film..."} />
                 <icons.Search className="search-icon" />
               </div>
